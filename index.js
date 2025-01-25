@@ -7,14 +7,14 @@ function searchacity(event) {
 let searchFormElement = document.querySelector("#forma");
 searchFormElement.addEventListener("submit", searchacity);
 
-function showUser(response) {
-  alert(`The user name is ${response.data.name}`);
+function displayTemperature(response) {
+  let temperatureElement = document.querySelector("#weather-temperature");
+  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
 }
 let city = "Sydney";
 let apiKey = "eafo3c54a06d9f77ba3t96121805c98f";
-let apiUrl =
-  "https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric";
-axios.get(apiUrl).then(showUser);
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+axios.get(apiUrl).then(displayTemperature);
 
 function changeDate() {
   let now = new Date();
@@ -32,7 +32,7 @@ function changeDate() {
     "Friday",
     "Saturday",
   ];
-  let formatDate = `${days[day]} ${date} ${hour}:${minute}`;
+  let formatDate = `${days[day]}, ${date} ${hour}:${minute}`;
   let dateNow = document.querySelector("#my-date");
   dateNow.innerHTML = formatDate;
 }
