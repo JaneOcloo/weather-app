@@ -64,7 +64,7 @@ footer {
   color: brown;
 }
 .weather-app-temperature-value {
-  font-size: 88px;
+  font-size: 84px;
 }
 .weather-app-temperature-icon {
   font-size: 44px;
@@ -73,8 +73,9 @@ footer {
   font-weight: bold;
 }
 .weather-app-temperature-degree {
-  position: absolute;
-  top: 230px;
-  right: 24px;
   font-size: 18px;
+  margin-left: 5px;
+  position: static;
+  display: inline-block;
+  vertical-align: top;
 }
