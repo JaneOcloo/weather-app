@@ -18,16 +18,17 @@ function displayTemperature(response) {
   let temperatureElement = document.querySelector(
     ".weather-app-temperature-value"
   );
-  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
-}
+  let unixTimestamp = response.data.time; // Time from API (in seconds)
+  let utcDate = new Date(unixTimestamp * 1000); // Convert to milliseconds
 
-function changeDate() {
-  let now = new Date();
-  let date = now.getDate();
-  let day = now.getDay();
-  let minute = now.getMinutes().toString().padStart(2, "0");
-  let hour = now.getHours().toString().padStart(2, "0");
+  // ✅ Automatically detect and convert to user's local timezone
+  let localTime = new Date(
+    utcDate.toLocaleString("en-US", {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    })
+  );
 
+  // ✅ Format the date properly
   let days = [
     "Sunday",
     "Monday",
@@ -37,8 +38,23 @@ function changeDate() {
     "Friday",
     "Saturday",
   ];
-  let formatDate = `${days[day]}, ${date} ${hour}:${minute}`;
-  let dateNow = document.querySelector("#my-date");
-  dateNow.innerHTML = formatDate;
+  let dayName = days[localTime.getDay()]; // Get day name (e.g., "Thursday")
+  let dayNumber = localTime.getDate(); // Get day number (e.g., "20")
+  let hour = localTime.getHours().toString().padStart(2, "0"); // Get hour (e.g., "13")
+  let minute = localTime.getMinutes().toString().padStart(2, "0"); // Get minutes (e.g., "09")
+  Intl.DateTimeFormat().resolvedOptions().timeZone;
+  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
+  let description = document.querySelector("#weather-condition");
+  let Realtimecondition = response.data.condition.description;
+  description.innerHTML = Realtimecondition;
+  let weatherDescription = document.querySelector("#humidity");
+  weatherDescription.innerHTML = `${response.data.temperature.humidity}%`;
+  let Realtimewindspeed = document.querySelector("#wind-speed");
+  Realtimewindspeed.innerHTML = `${response.data.wind.speed} km/h`;
+  let time = document.querySelector("#my-date");
+  let formattedDate = `${dayName} ${dayNumber}, ${hour}:${minute}`;
+  time.innerHTML = formattedDate;
 }
-changeDate();
+//alternative:time.innerHTML = `${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+// alternative: let formatDate = `${days[day]} ${date}, ${hour}:${minute},`;
+//let date = new Date(response.data.time * 1000);
