@@ -18,17 +18,15 @@ function displayTemperature(response) {
   let temperatureElement = document.querySelector(
     ".weather-app-temperature-value"
   );
-  let unixTimestamp = response.data.time; // Time from API (in seconds)
-  let utcDate = new Date(unixTimestamp * 1000); // Convert to milliseconds
+  let unixTimestamp = response.data.time;
+  let utcDate = new Date(unixTimestamp * 1000);
 
-  // ✅ Automatically detect and convert to user's local timezone
   let localTime = new Date(
     utcDate.toLocaleString("en-US", {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     })
   );
 
-  // ✅ Format the date properly
   let days = [
     "Sunday",
     "Monday",
@@ -38,11 +36,10 @@ function displayTemperature(response) {
     "Friday",
     "Saturday",
   ];
-  let dayName = days[localTime.getDay()]; // Get day name (e.g., "Thursday")
-  let dayNumber = localTime.getDate(); // Get day number (e.g., "20")
-  let hour = localTime.getHours().toString().padStart(2, "0"); // Get hour (e.g., "13")
-  let minute = localTime.getMinutes().toString().padStart(2, "0"); // Get minutes (e.g., "09")
-  Intl.DateTimeFormat().resolvedOptions().timeZone;
+  let dayName = days[localTime.getDay()];
+  let dayNumber = localTime.getDate();
+  let hour = localTime.getHours().toString().padStart(2, "0");
+  let minute = localTime.getMinutes().toString().padStart(2, "0");
   temperatureElement.innerHTML = Math.round(response.data.temperature.current);
   let description = document.querySelector("#weather-condition");
   let Realtimecondition = response.data.condition.description;
@@ -54,7 +51,9 @@ function displayTemperature(response) {
   let time = document.querySelector("#my-date");
   let formattedDate = `${dayName} ${dayNumber}, ${hour}:${minute}`;
   time.innerHTML = formattedDate;
+  let icon = document.querySelector("#icon");
+  icon.innerHTML = `<img
+      src="${response.data.condition.icon_url}"
+      class="weather-app-temperature-icon"
+    />`;
 }
-//alternative:time.innerHTML = `${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
-// alternative: let formatDate = `${days[day]} ${date}, ${hour}:${minute},`;
-//let date = new Date(response.data.time * 1000);

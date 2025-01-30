@@ -63,19 +63,28 @@ footer {
 .weather-app-details strong {
   color: brown;
 }
-.weather-app-temperature-value {
-  font-size: 84px;
+.weather-app-temperature {
+  display: flex; /* Arrange items in a row */
+  /* Align vertically */
 }
+
+.weather-app-temperature-value {
+  font-size: 90px;
+  display: inline-block;
+}
+
 .weather-app-temperature-icon {
   font-size: 44px;
   margin-top: 7px;
   margin-right: 3px;
   font-weight: bold;
+  display: inline-block;
 }
+
 .weather-app-temperature-degree {
   font-size: 18px;
   margin-left: 5px;
-  position: static;
+  position: relative;
   display: inline-block;
   vertical-align: top;
 }
